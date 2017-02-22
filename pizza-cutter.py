@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 M = 1  # Mushroom
 T = 2  # Tomato
@@ -7,8 +8,6 @@ R = 0  # number of rows
 C = 0  # number of columns
 L = 0  # minimum number of each ingredient per slice
 H = 0  # maximum total number of cells of a slice
-
-filename_example = "example-input.txt"
 
 
 def read_file(filename):
@@ -28,7 +27,7 @@ def read_file(filename):
     # Choose data type of numpy array to be a String with length C
     dtype = np.dtype('S{}'.format(C))
     # Load file and skip first line with the header info
-    pizza_line_string = np.loadtxt(filename_example, skiprows=1, dtype=dtype)
+    pizza_line_string = np.loadtxt(filename, skiprows=1, dtype=dtype)
 
     # Parse rows into matrix format
     # Create a new array with shape R rows and C columns of single character data type
@@ -46,5 +45,11 @@ def read_file(filename):
     return pizza_matrix_numbers
 
 
-print(read_file(filename_example))
+filename = "medium.in"
+
+start_time = time.time()
+pizza_matrix = read_file(filename)
+print("Reading took {} seconds".format(time.time() - start_time))
+
+print(pizza_matrix)
 print(R, C, L, H)
