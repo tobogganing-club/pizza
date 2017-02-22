@@ -38,7 +38,7 @@ def read_file(filename):
 
     global M, T
     # Create empty new matrix with shape of pizza_matrix_string
-    pizza_matrix_numbers = np.empty_like(pizza_matrix_string)
+    pizza_matrix_numbers = np.empty(pizza_matrix_string.shape, dtype=int)
     # Set value of T everywhere pizza_matrix_string is equal to 'T'
     pizza_matrix_numbers[np.where(pizza_matrix_string == 'T')] = T
     pizza_matrix_numbers[np.where(pizza_matrix_string == 'M')] = M
