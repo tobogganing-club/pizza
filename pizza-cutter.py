@@ -49,9 +49,9 @@ def read_file(filename):
 
 def count_ingredient_occurences(pizza):
     """
-
+    Count occurrences of ingredients M and T
     :param pizza:
-    :return: array [occurences of M, T]
+    :return: array [occurrences of M, T]
     """
     # 2d array in 1d array
     pizza_1d = pizza.ravel()
