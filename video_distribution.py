@@ -59,7 +59,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
     #
     # video_allocation[cache_video_fits, video_allocation] = 1
 
-    for i in range(0, V * C):
+    for i in range(0, V ):
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
         # print("latency_pot_win:\n {}".format(latency_pot_win))
         # find global most efficient video
@@ -74,6 +74,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
         video_allocation[current_cache_idx, current_video_idx] = 1
         cache_sizes = np.dot(video_allocation, video_sizes)
         if cache_sizes[current_cache_idx] > cache_capacity_max:
+            print("deleted")
             video_allocation[current_cache_idx, current_video_idx] = 0
 
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
@@ -94,13 +95,14 @@ def output(video_allocation, outputname):
     return
 
 
-filename = "trending_today.in"
+filename = "me_at_the_zoo.in"
 outputname = "out.txt"
 
 start_time = time.time()
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
 
+print("video_requests:\n {}".format(video_requests))
 video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
 
 output(video_allocation, outputname)
