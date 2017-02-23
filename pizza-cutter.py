@@ -46,7 +46,7 @@ def read_file(filename):
 
 
 filename = "medium.in"
-
+# stefan's test
 start_time = time.time()
 pizza_matrix = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
