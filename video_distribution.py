@@ -61,7 +61,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
 
     for i in range(0, V * C):
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
-        print("latency_pot_win:\n {}".format(latency_pot_win))
+        # print("latency_pot_win:\n {}".format(latency_pot_win))
         # find global most efficient video
         video_max_efficient = np.unravel_index(latency_pot_win.argmax(), latency_pot_win.shape)
         print(video_max_efficient)
@@ -84,7 +84,6 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
 def output(video_allocation, outputname):
     summation = np.sum(video_allocation, axis=1)
     used_cache_number = np.size(np.nonzero(summation))
-    print("here", summation)
     with open(outputname, 'w') as out:
         out.writelines(str(used_cache_number)+"\n")
         for cache_idx in range(0, C):
@@ -95,7 +94,7 @@ def output(video_allocation, outputname):
     return
 
 
-filename = "example-video.in"
+filename = "trending_today.in"
 outputname = "out.txt"
 
 start_time = time.time()
