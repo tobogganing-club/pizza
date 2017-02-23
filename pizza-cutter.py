@@ -2,6 +2,7 @@ import time
 
 import numpy as np
 
+# define global variables
 M = 1  # Mushroom
 T = 2  # Tomato
 
@@ -14,7 +15,7 @@ H = 0  # maximum total number of cells of a slice
 def read_file(filename):
     # write into global variables
     global R, C, L, H
-    # open file
+    # open file read only
     with open(filename, 'r') as f:
         # read first line with general information
         header = f.readline()
@@ -49,7 +50,12 @@ def shortage_ingredient(): #TODO
 
 
 filename = "medium.in"
-# stefan's test
+
+a = 5
+for i in range(1,10):
+    a+=i
+    # my comment
+
 start_time = time.time()
 pizza_matrix = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
