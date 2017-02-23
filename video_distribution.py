@@ -45,11 +45,53 @@ def read_file(filename):
     return [video_sizes, endpoint_latencies, latency_diffs, video_requests]
 
 
+def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
+    video_allocation = np.zeros((C, V))
+
+    # # TODO select smaller video if efficiency is equivalent
+    # print("video_max_efficient:\n {}".format(video_max_efficient))
+    # cache_sizes = np.dot(video_allocation, video_sizes)
+    # video_sizes_stretched = np.tile(video_sizes, (C, 1))
+    # selected_video_sizes = np.choose(video_max_efficient, video_sizes_stretched.T)
+    # print("selected_video_sizes:\n {}".format(selected_video_sizes))
+    # cache_video_fits = cache_capacity_max - cache_sizes >= selected_video_sizes
+    # print("videos_fit:\n {}".format(cache_video_fits))
+    #
+    # video_allocation[cache_video_fits, video_allocation] = 1
+
+    for i in range(0, V * C):
+        latency_pot_win = np.dot(video_requests.T, latency_diffs)
+        print("latency_pot_win:\n {}".format(latency_pot_win))
+        # find global most efficient video
+        video_max_efficient = np.unravel_index(latency_pot_win.argmax(), latency_pot_win.shape)
+        print(video_max_efficient)
+        current_video_idx = video_max_efficient[0]
+        current_cache_idx = video_max_efficient[1]
+        relevant_endpoint_idxs = np.nonzero(latency_diffs[:, current_cache_idx])
+        for relevant_endpoint_idx in relevant_endpoint_idxs:
+            video_requests[relevant_endpoint_idx, current_video_idx] = 0
+        # calculate space
+        video_allocation[current_cache_idx, current_video_idx] = 1
+        cache_sizes = np.dot(video_allocation, video_sizes)
+        if cache_sizes[current_cache_idx] > cache_capacity_max:
+            video_allocation[current_cache_idx, current_video_idx] = 0
+
+        latency_pot_win = np.dot(video_requests.T, latency_diffs)
+
+    return video_allocation
+
+
 filename = "example-video.in"
+
+start_time = time.time()
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
+print("Reading took {} seconds".format(time.time() - start_time))
+
+video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
 
 print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
 print("video_sizes: {}".format(video_sizes))
 print("endpoint_latencies:\n {}".format(endpoint_latencies))
 print("latency_diffs:\n {}".format(latency_diffs))
 print("video_requests:\n {}".format(video_requests))
+print("video_allocation:\n {}".format(video_allocation))
