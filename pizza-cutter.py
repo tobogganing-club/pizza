@@ -46,10 +46,20 @@ def read_file(filename):
 
     return pizza_matrix_numbers
 
-def shortage_ingredient(): #TODO
+
+def count_ingredient_occurences(pizza):
+    """
+
+    :param pizza:
+    :return: array [occurences of M, T]
+    """
+    # 2d array in 1d array
+    pizza_1d = pizza.ravel()
+    bins = np.bincount(pizza_1d)
+    return bins
 
 
-filename = "medium.in"
+filename = "example.in"
 
 a = 5
 for i in range(1,10):
@@ -60,5 +70,7 @@ start_time = time.time()
 pizza_matrix = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
 
+bins = count_ingredient_occurences(pizza_matrix)
+print("{} times M, \t {} times T".format(bins[0], bins[1]))
 print(pizza_matrix)
 print(R, C, L, H)
