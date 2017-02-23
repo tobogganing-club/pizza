@@ -45,6 +45,8 @@ def read_file(filename):
 
     return pizza_matrix_numbers
 
+def shortage_ingredient(): #TODO
+
 
 filename = "medium.in"
 # stefan's test
