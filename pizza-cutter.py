@@ -61,11 +61,6 @@ def count_ingredient_occurences(pizza):
 
 filename = "example.in"
 
-a = 5
-for i in range(1,10):
-    a+=i
-    # my comment
-
 start_time = time.time()
 pizza_matrix = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
