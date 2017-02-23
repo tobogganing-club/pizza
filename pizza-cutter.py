@@ -2,6 +2,7 @@ import time
 
 import numpy as np
 
+# define global variables
 M = 1  # Mushroom
 T = 2  # Tomato
 
@@ -14,7 +15,7 @@ H = 0  # maximum total number of cells of a slice
 def read_file(filename):
     # write into global variables
     global R, C, L, H
-    # open file
+    # open file read only
     with open(filename, 'r') as f:
         # read first line with general information
         header = f.readline()
