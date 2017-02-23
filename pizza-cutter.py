@@ -47,7 +47,7 @@ def read_file(filename):
 
 
 filename = "medium.in"
-# stefan's test
+
 a = 1
 for i in range(1,10):
     a+=i
