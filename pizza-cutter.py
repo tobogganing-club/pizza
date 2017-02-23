@@ -3,8 +3,8 @@ import time
 import numpy as np
 
 # define global variables
-M = 1  # Mushroom
-T = 2  # Tomato
+M = 0  # Mushroom
+T = 1  # Tomato
 
 R = 0  # number of rows
 C = 0  # number of columns
