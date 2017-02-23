@@ -1,5 +1,6 @@
-import numpy as np
 import time
+
+import numpy as np
 
 M = 1  # Mushroom
 T = 2  # Tomato
