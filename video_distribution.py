@@ -7,12 +7,12 @@ V = 1  # (1 ≤ V ≤ 10000) - the number of videos
 E = 1  # (1 ≤ E ≤ 1000) - the number of endpoints
 R = 1  # (1 ≤ R ≤ 1000000) - the number of request descriptions
 C = 1  # (1 ≤ C ≤ 1000) - the number of cache servers
-X = 1  # (1 ≤ X ≤ 500000) - the capacity of each cache server in megabyte
+cache_capacity_max = 1  # (1 ≤ X ≤ 500000) - the capacity of each cache server in megabyte
 
 
 def read_file(filename):
     # write into global variables
-    global V, E, R, C, X
+    global V, E, R, C, cache_capacity_max
     # open file read only
     with open(filename, 'r') as file:
         # read first line with general information
@@ -22,7 +22,7 @@ def read_file(filename):
         header = header.rstrip('\n').split(' ')
         header2 = header2.rstrip('\n').split(' ')
         # save in global variable
-        [V, E, R, C, X] = map(int, header)
+        [V, E, R, C, cache_capacity_max] = map(int, header)
         video_sizes = np.array(header2, dtype=int)
 
         # create arrays
@@ -48,7 +48,7 @@ def read_file(filename):
 filename = "example-video.in"
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
 
-print("V, E, R, C, X :", V, E, R, C, X)
+print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
 print("video_sizes: {}".format(video_sizes))
 print("endpoint_latencies:\n {}".format(endpoint_latencies))
 print("latency_diffs:\n {}".format(latency_diffs))
