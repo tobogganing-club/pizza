@@ -81,7 +81,22 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
     return video_allocation
 
 
+def output(video_allocation, outputname):
+    summation = np.sum(video_allocation, axis=1)
+    used_cache_number = np.size(np.nonzero(summation))
+    print("here", summation)
+    with open(outputname, 'w') as out:
+        out.writelines(str(used_cache_number)+"\n")
+        for cache_idx in range(0, C):
+            str_out = np.array_str(np.nonzero(video_allocation[cache_idx, :])[0])
+            str_out = str_out[1:-1]
+            print(str_out)
+            out.writelines(str(cache_idx) + " " + str_out+"\n")
+    return
+
+
 filename = "example-video.in"
+outputname = "out.txt"
 
 start_time = time.time()
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
@@ -89,6 +104,7 @@ print("Reading took {} seconds".format(time.time() - start_time))
 
 video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
 
+output(video_allocation, outputname)
 print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
 print("video_sizes: {}".format(video_sizes))
 print("endpoint_latencies:\n {}".format(endpoint_latencies))
