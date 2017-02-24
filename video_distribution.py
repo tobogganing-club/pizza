@@ -86,7 +86,7 @@ def output(video_allocation, outputname):
     summation = np.sum(video_allocation, axis=1)
     used_cache_number = np.size(np.nonzero(summation))
     with open(outputname, 'w') as out:
-        out.writelines(str(used_cache_number)+"\n")
+        out.writelines(str(used_cache_number + 1) + "\n")
         for cache_idx in range(0, C):
             str_out = np.array_str(np.nonzero(video_allocation[cache_idx, :])[0])
             str_out = str_out[1:-1]
