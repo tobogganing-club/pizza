@@ -59,7 +59,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
     #
     # video_allocation[cache_video_fits, video_allocation] = 1
 
-    for i in range(0, V ):
+    for i in range(0, V):
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
         # print("latency_pot_win:\n {}".format(latency_pot_win))
         # find global most efficient video
@@ -77,8 +77,6 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
             print("deleted")
             video_allocation[current_cache_idx, current_video_idx] = 0
 
-        latency_pot_win = np.dot(video_requests.T, latency_diffs)
-
     return video_allocation
 
 
@@ -91,7 +89,7 @@ def output(video_allocation, outputname):
             str_out = np.array_str(np.nonzero(video_allocation[cache_idx, :])[0])
             str_out = str_out[1:-1]
             print(str_out)
-            out.writelines(str(cache_idx) + " " + str_out+"\n")
+            out.writelines(str(cache_idx) + " " + str_out + "\n")
     return
 
 
