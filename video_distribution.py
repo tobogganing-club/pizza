@@ -104,14 +104,15 @@ outputname = filename.split('.')[0] + ".out"
 start_time = time.time()
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
 print("Reading took {} seconds".format(time.time() - start_time))
-
-print("video_requests:\n {}".format(video_requests))
-video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
-
-output(video_allocation, outputname)
 print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
 print("video_sizes: {}".format(video_sizes))
 print("endpoint_latencies:\n {}".format(endpoint_latencies))
 print("latency_diffs:\n {}".format(latency_diffs))
+print("video_requests:\n {}".format(video_requests))
+
+video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
+
+output(video_allocation, outputname)
+
 print("video_requests:\n {}".format(video_requests))
 print("video_allocation:\n {}".format(video_allocation))
