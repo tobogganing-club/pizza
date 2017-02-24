@@ -63,10 +63,14 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
         # print("latency_pot_win:\n {}".format(latency_pot_win))
         # find global most efficient video
-        video_max_efficient = np.unravel_index(latency_pot_win.argmax(), latency_pot_win.shape)
-        print(video_max_efficient)
+        video_max_efficient_idx = latency_pot_win.argmax()
+        video_max_efficient = np.unravel_index(video_max_efficient_idx, latency_pot_win.shape)
         current_video_idx = video_max_efficient[0]
         current_cache_idx = video_max_efficient[1]
+
+        if latency_pot_win[current_video_idx, current_cache_idx] == 0:
+            break
+
         relevant_endpoint_idxs = np.nonzero(latency_diffs[:, current_cache_idx])
         for relevant_endpoint_idx in relevant_endpoint_idxs:
             video_requests[relevant_endpoint_idx, current_video_idx] = 0
@@ -75,6 +79,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
         cache_sizes = np.dot(video_allocation, video_sizes)
         if cache_sizes[current_cache_idx] > cache_capacity_max:
             print("deleted")
+            # print("latency_pot_win:\n {}".format(latency_pot_win))
             video_allocation[current_cache_idx, current_video_idx] = 0
 
     return video_allocation
