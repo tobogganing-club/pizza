@@ -92,7 +92,7 @@ def output(video_allocation, outputname):
         out.writelines(str(used_cache_number) + "\n")
         for cache_idx in range(0, C):
             str_out = np.array_str(np.nonzero(video_allocation[cache_idx, :])[0])
-            str_out.replace('\n', ' ')
+            str_out.replace('\n', '')
             str_out = str_out[1:-1]
             print(str_out)
             if (str_out != ''):
