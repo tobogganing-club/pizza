@@ -98,7 +98,7 @@ def output(video_allocation, outputname):
     return
 
 
-filename = "me_at_the_zoo.in"
+filename = "trending_today.in"
 outputname = filename.split('.')[0] + ".out"
 
 start_time = time.time()
