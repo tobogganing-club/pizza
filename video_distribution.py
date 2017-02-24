@@ -3,12 +3,6 @@ import time
 
 import numpy as np
 
-V = 1  # (1 ≤ V ≤ 10000) - the number of videos
-E = 1  # (1 ≤ E ≤ 1000) - the number of endpoints
-R = 1  # (1 ≤ R ≤ 1000000) - the number of request descriptions
-C = 1  # (1 ≤ C ≤ 1000) - the number of cache servers
-cache_capacity_max = 1  # (1 ≤ X ≤ 500000) - the capacity of each cache server in megabyte
-
 
 def read_file(filename):
     # write into global variables
@@ -58,7 +52,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
     # print("videos_fit:\n {}".format(cache_video_fits))
     #
     # video_allocation[cache_video_fits, video_allocation] = 1
-
+    number_deleted = 0
     for i in range(0, V):
         latency_pot_win = np.dot(video_requests.T, latency_diffs)
         # print("latency_pot_win:\n {}".format(latency_pot_win))
@@ -88,6 +82,7 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
 
 
 def output(video_allocation, outputname):
+    global C
     summation = np.sum(video_allocation, axis=1)
     used_cache_number = np.size(np.nonzero(summation))
     with open(outputname, 'w') as out:
@@ -101,21 +96,35 @@ def output(video_allocation, outputname):
     return
 
 
-filename = "videos_worth_spreading.in"
-outputname = filename.split('.')[0] + ".out"
+def main():
+    V = 1  # (1 ≤ V ≤ 10000) - the number of videos
+    E = 1  # (1 ≤ E ≤ 1000) - the number of endpoints
+    R = 1  # (1 ≤ R ≤ 1000000) - the number of request descriptions
+    C = 1  # (1 ≤ C ≤ 1000) - the number of cache servers
+    cache_capacity_max = 1  # (1 ≤ X ≤ 500000) - the capacity of each cache server in megabyte
+    number_deleted_max = E  # hand waving criterion!
 
-start_time = time.time()
-[video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
-print("Reading took {} seconds".format(time.time() - start_time))
-print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
-print("video_sizes: {}".format(video_sizes))
-print("endpoint_latencies:\n {}".format(endpoint_latencies))
-print("latency_diffs:\n {}".format(latency_diffs))
-print("video_requests:\n {}".format(video_requests))
+    name = "kittens"
+    filename = name + ".in"
+    outputname = name + ".out"
 
-video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
+    start_time = time.time()
+    [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
+    print("Reading took {} seconds".format(time.time() - start_time))
+    print("V, E, R, C, X :", V, E, R, C, cache_capacity_max)
+    print("video_sizes: {}".format(video_sizes))
+    print("endpoint_latencies:\n {}".format(endpoint_latencies))
+    print("latency_diffs:\n {}".format(latency_diffs))
+    print("video_requests:\n {}".format(video_requests))
 
-output(video_allocation, outputname)
+    video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
+    np.save(name + "video_allocation", video_allocation)
 
-print("video_requests:\n {}".format(video_requests))
-print("video_allocation:\n {}".format(video_allocation))
+    output(video_allocation, outputname)
+
+    print("video_requests:\n {}".format(video_requests))
+    print("video_allocation:\n {}".format(video_allocation))
+
+
+if __name__ == "__main__":
+    main()
