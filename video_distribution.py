@@ -78,9 +78,11 @@ def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
         video_allocation[current_cache_idx, current_video_idx] = 1
         cache_sizes = np.dot(video_allocation, video_sizes)
         if cache_sizes[current_cache_idx] > cache_capacity_max:
-            print("deleted")
+            number_deleted += 1
             # print("latency_pot_win:\n {}".format(latency_pot_win))
             video_allocation[current_cache_idx, current_video_idx] = 0
+            if number_deleted > number_deleted_max:
+                break
 
     return video_allocation
 
