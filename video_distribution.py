@@ -96,7 +96,7 @@ def output(video_allocation, outputname):
 
 
 filename = "me_at_the_zoo.in"
-outputname = "out.txt"
+outputname = filename.split('.')[0] + ".out"
 
 start_time = time.time()
 [video_sizes, endpoint_latencies, latency_diffs, video_requests] = read_file(filename)
