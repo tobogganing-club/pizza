@@ -100,7 +100,7 @@ def output(video_allocation, outputname):
     return
 
 
-filename = "trending_today.in"
+filename = "videos_worth_spreading.in"
 outputname = filename.split('.')[0] + ".out"
 
 start_time = time.time()
