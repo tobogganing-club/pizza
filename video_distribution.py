@@ -118,7 +118,7 @@ def main():
     print("video_requests:\n {}".format(video_requests))
 
     video_allocation = algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests)
-    np.save(name + "video_allocation", video_allocation)
+    np.save(name + "-video_allocation", video_allocation)
 
     output(video_allocation, outputname)
 
