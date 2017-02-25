@@ -40,6 +40,7 @@ def read_file(filename):
 
 
 def algorithm_1(video_sizes, endpoint_latencies, latency_diffs, video_requests):
+    number_deleted_max = E  # hand waving criterion!
     video_allocation = np.zeros((C, V))
 
     # # TODO select smaller video if efficiency is equivalent
@@ -102,7 +103,6 @@ def main():
     R = 1  # (1 ≤ R ≤ 1000000) - the number of request descriptions
     C = 1  # (1 ≤ C ≤ 1000) - the number of cache servers
     cache_capacity_max = 1  # (1 ≤ X ≤ 500000) - the capacity of each cache server in megabyte
-    number_deleted_max = E  # hand waving criterion!
 
     name = "kittens"
     filename = name + ".in"
